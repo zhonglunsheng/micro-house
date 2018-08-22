@@ -1,4 +1,4 @@
-package com.lipop.microhourse;
+package com.lipop.microhouse;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

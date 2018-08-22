@@ -1,4 +1,4 @@
-package com.lipop.microhourse.filter;
+package com.lipop.microhouse.filter;
 
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;

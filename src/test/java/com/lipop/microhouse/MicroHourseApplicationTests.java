@@ -1,4 +1,4 @@
-package com.lipop.microhourse;
+package com.lipop.microhouse;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
