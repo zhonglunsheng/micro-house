@@ -18,7 +18,10 @@ public class MyTestController {
     private UserMapper userMapper;
 
     @RequestMapping("/myteset")
-    public User test(){
+    public User test() throws IllegalAccessException {
+        if (true){
+            throw new IllegalAccessException();
+        }
         return userMapper.selectByPrimaryKey(10L);
     }
 }
