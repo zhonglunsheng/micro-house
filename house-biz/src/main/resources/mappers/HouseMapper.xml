@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lipop.microhouse.dao.HouseMapper" >
+  <resultMap id="BaseResultMap" type="com.lipop.microhouse.model.House" >
+    <constructor >
+      <idArg column="id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="type" jdbcType="BIT" javaType="java.lang.Boolean" />
+      <arg column="price" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="images" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="area" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="beds" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="baths" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="rating" jdbcType="DOUBLE" javaType="java.lang.Double" />
+      <arg column="remarks" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="properties" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="floor_plan" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="tags" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="create_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="city_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="community_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="address" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="state" jdbcType="BIT" javaType="java.lang.Boolean" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, name, type, price, images, area, beds, baths, rating, remarks, properties, floor_plan, 
+    tags, create_time, city_id, community_id, address, state
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from house
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from house
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.lipop.microhouse.model.House" >
+    insert into house (id, name, type, price, 
+      images, area, beds, 
+      baths, rating, remarks, 
+      properties, floor_plan, tags, 
+      create_time, city_id, community_id, 
+      address, state)
+    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{type,jdbcType=BIT}, #{price,jdbcType=INTEGER}, 
+      #{images,jdbcType=VARCHAR}, #{area,jdbcType=INTEGER}, #{beds,jdbcType=INTEGER}, 
+      #{baths,jdbcType=INTEGER}, #{rating,jdbcType=DOUBLE}, #{remarks,jdbcType=VARCHAR}, 
+      #{properties,jdbcType=VARCHAR}, #{floorPlan,jdbcType=VARCHAR}, #{tags,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{cityId,jdbcType=INTEGER}, #{communityId,jdbcType=INTEGER}, 
+      #{address,jdbcType=VARCHAR}, #{state,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lipop.microhouse.model.House" >
+    insert into house
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="images != null" >
+        images,
+      </if>
+      <if test="area != null" >
+        area,
+      </if>
+      <if test="beds != null" >
+        beds,
+      </if>
+      <if test="baths != null" >
+        baths,
+      </if>
+      <if test="rating != null" >
+        rating,
+      </if>
+      <if test="remarks != null" >
+        remarks,
+      </if>
+      <if test="properties != null" >
+        properties,
+      </if>
+      <if test="floorPlan != null" >
+        floor_plan,
+      </if>
+      <if test="tags != null" >
+        tags,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="cityId != null" >
+        city_id,
+      </if>
+      <if test="communityId != null" >
+        community_id,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=BIT},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=INTEGER},
+      </if>
+      <if test="images != null" >
+        #{images,jdbcType=VARCHAR},
+      </if>
+      <if test="area != null" >
+        #{area,jdbcType=INTEGER},
+      </if>
+      <if test="beds != null" >
+        #{beds,jdbcType=INTEGER},
+      </if>
+      <if test="baths != null" >
+        #{baths,jdbcType=INTEGER},
+      </if>
+      <if test="rating != null" >
+        #{rating,jdbcType=DOUBLE},
+      </if>
+      <if test="remarks != null" >
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="properties != null" >
+        #{properties,jdbcType=VARCHAR},
+      </if>
+      <if test="floorPlan != null" >
+        #{floorPlan,jdbcType=VARCHAR},
+      </if>
+      <if test="tags != null" >
+        #{tags,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cityId != null" >
+        #{cityId,jdbcType=INTEGER},
+      </if>
+      <if test="communityId != null" >
+        #{communityId,jdbcType=INTEGER},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lipop.microhouse.model.House" >
+    update house
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=BIT},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=INTEGER},
+      </if>
+      <if test="images != null" >
+        images = #{images,jdbcType=VARCHAR},
+      </if>
+      <if test="area != null" >
+        area = #{area,jdbcType=INTEGER},
+      </if>
+      <if test="beds != null" >
+        beds = #{beds,jdbcType=INTEGER},
+      </if>
+      <if test="baths != null" >
+        baths = #{baths,jdbcType=INTEGER},
+      </if>
+      <if test="rating != null" >
+        rating = #{rating,jdbcType=DOUBLE},
+      </if>
+      <if test="remarks != null" >
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="properties != null" >
+        properties = #{properties,jdbcType=VARCHAR},
+      </if>
+      <if test="floorPlan != null" >
+        floor_plan = #{floorPlan,jdbcType=VARCHAR},
+      </if>
+      <if test="tags != null" >
+        tags = #{tags,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cityId != null" >
+        city_id = #{cityId,jdbcType=INTEGER},
+      </if>
+      <if test="communityId != null" >
+        community_id = #{communityId,jdbcType=INTEGER},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=BIT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lipop.microhouse.model.House" >
+    update house
+    set name = #{name,jdbcType=VARCHAR},
+      type = #{type,jdbcType=BIT},
+      price = #{price,jdbcType=INTEGER},
+      images = #{images,jdbcType=VARCHAR},
+      area = #{area,jdbcType=INTEGER},
+      beds = #{beds,jdbcType=INTEGER},
+      baths = #{baths,jdbcType=INTEGER},
+      rating = #{rating,jdbcType=DOUBLE},
+      remarks = #{remarks,jdbcType=VARCHAR},
+      properties = #{properties,jdbcType=VARCHAR},
+      floor_plan = #{floorPlan,jdbcType=VARCHAR},
+      tags = #{tags,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      city_id = #{cityId,jdbcType=INTEGER},
+      community_id = #{communityId,jdbcType=INTEGER},
+      address = #{address,jdbcType=VARCHAR},
+      state = #{state,jdbcType=BIT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
