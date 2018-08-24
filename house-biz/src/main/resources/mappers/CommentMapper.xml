@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.lipop.microhouse.dao.CommentMapper" >
-  <resultMap id="BaseResultMap" type="com.lipop.microhouse.model.Comment" >
+<mapper namespace="com.lipop.micro.house.biz.dao.CommentMapper" >
+  <resultMap id="BaseResultMap" type="com.lipop.micro.house.common.model.Comment" >
     <constructor >
       <idArg column="id" jdbcType="BIGINT" javaType="java.lang.Long" />
       <arg column="content" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="house_id" jdbcType="BIGINT" javaType="java.lang.Long" />
       <arg column="create_time" jdbcType="DATE" javaType="java.util.Date" />
       <arg column="blog_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
-      <arg column="type" jdbcType="BIT" javaType="java.lang.Boolean" />
+      <arg column="type" jdbcType="INTEGER" javaType="java.lang.Integer" />
       <arg column="user_id" jdbcType="BIGINT" javaType="java.lang.Long" />
     </constructor>
   </resultMap>
@@ -25,7 +25,7 @@
     delete from comment
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.lipop.microhouse.model.Comment" >
+  <insert id="insert" parameterType="com.lipop.micro.house.common.model.Comment" >
     insert into comment (id, content, house_id, 
       create_time, blog_id, type, 
       user_id)
@@ -33,7 +33,7 @@
       #{createTime,jdbcType=DATE}, #{blogId,jdbcType=INTEGER}, #{type,jdbcType=BIT}, 
       #{userId,jdbcType=BIGINT})
   </insert>
-  <insert id="insertSelective" parameterType="com.lipop.microhouse.model.Comment" >
+  <insert id="insertSelective" parameterType="com.lipop.micro.house.common.model.Comment" >
     insert into comment
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -82,7 +82,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.lipop.microhouse.model.Comment" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.lipop.micro.house.common.model.Comment" >
     update comment
     <set >
       <if test="content != null" >
@@ -106,7 +106,7 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.lipop.microhouse.model.Comment" >
+  <update id="updateByPrimaryKey" parameterType="com.lipop.micro.house.common.model.Comment" >
     update comment
     set content = #{content,jdbcType=VARCHAR},
       house_id = #{houseId,jdbcType=BIGINT},
@@ -116,4 +116,18 @@
       user_id = #{userId,jdbcType=BIGINT}
     where id = #{id,jdbcType=BIGINT}
   </update>
+  <select id="selectHouseComments" resultType="com.lipop.micro.house.common.model.Comment">
+    select <include refid="Base_Column_List"/>
+    from   comment
+    where  type =1 and house_id = #{houseId}
+    order  by create_time desc
+    limit  #{size}
+  </select>
+  <select id="selectBlogComments" resultType="com.lipop.micro.house.common.model.Comment">
+    select <include refid="Base_Column_List"/>
+    from   comment
+    where  type =2 and blog_id = #{blogId}
+    order  by create_time desc
+    limit  #{size}
+  </select>
 </mapper>

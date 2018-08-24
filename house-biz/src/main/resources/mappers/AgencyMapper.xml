@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.lipop.microhouse.dao.AgencyMapper" >
-  <resultMap id="BaseResultMap" type="com.lipop.microhouse.model.Agency" >
+<mapper namespace="com.lipop.micro.house.biz.dao.AgencyMapper" >
+  <resultMap id="BaseResultMap" type="com.lipop.micro.house.common.model.Agency" >
     <constructor >
       <idArg column="id" jdbcType="INTEGER" javaType="java.lang.Integer" />
       <arg column="name" jdbcType="VARCHAR" javaType="java.lang.String" />
@@ -26,7 +26,7 @@
     delete from agency
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.lipop.microhouse.model.Agency" >
+  <insert id="insert" parameterType="com.lipop.micro.house.common.model.Agency" >
     insert into agency (id, name, address, 
       phone, email, about_us, 
       mobile, web_site)
@@ -34,7 +34,7 @@
       #{phone,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{aboutUs,jdbcType=VARCHAR}, 
       #{mobile,jdbcType=VARCHAR}, #{webSite,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.lipop.microhouse.model.Agency" >
+  <insert id="insertSelective" parameterType="com.lipop.micro.house.common.model.Agency" >
     insert into agency
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -89,7 +89,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.lipop.microhouse.model.Agency" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.lipop.micro.house.common.model.Agency" >
     update agency
     <set >
       <if test="name != null" >
@@ -116,7 +116,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.lipop.microhouse.model.Agency" >
+  <update id="updateByPrimaryKey" parameterType="com.lipop.micro.house.common.model.Agency" >
     update agency
     set name = #{name,jdbcType=VARCHAR},
       address = #{address,jdbcType=VARCHAR},
@@ -127,4 +127,34 @@
       web_site = #{webSite,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="selectAgencyList" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" />
+    from agency
+    <where>
+      <if test="id != null" >
+        and id = #{id,jdbcType=INTEGER}
+      </if>
+      <if test="name != null" >
+        and name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        and address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        and phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        and email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="aboutUs != null" >
+        and about_us = #{aboutUs,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        and mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="webSite != null" >
+        and web_site = #{webSite,jdbcType=VARCHAR},
+      </if>
+    </where>
+  </select>
 </mapper>

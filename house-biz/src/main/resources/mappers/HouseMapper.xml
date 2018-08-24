@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.lipop.microhouse.dao.HouseMapper" >
-  <resultMap id="BaseResultMap" type="com.lipop.microhouse.model.House" >
+<mapper namespace="com.lipop.micro.house.biz.dao.HouseMapper" >
+  <resultMap id="BaseResultMap" type="com.lipop.micro.house.common.model.House" >
     <constructor >
       <idArg column="id" jdbcType="BIGINT" javaType="java.lang.Long" />
       <arg column="name" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="type" jdbcType="BIT" javaType="java.lang.Boolean" />
+      <arg column="type" jdbcType="INTEGER" javaType="java.lang.Integer" />
       <arg column="price" jdbcType="INTEGER" javaType="java.lang.Integer" />
       <arg column="images" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="area" jdbcType="INTEGER" javaType="java.lang.Integer" />
@@ -20,7 +20,7 @@
       <arg column="city_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
       <arg column="community_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
       <arg column="address" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="state" jdbcType="BIT" javaType="java.lang.Boolean" />
+      <arg column="state" jdbcType="INTEGER" javaType="java.lang.Integer" />
     </constructor>
   </resultMap>
   <sql id="Base_Column_List" >
@@ -37,7 +37,7 @@
     delete from house
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.lipop.microhouse.model.House" >
+  <insert id="insert" parameterType="com.lipop.micro.house.common.model.House" >
     insert into house (id, name, type, price, 
       images, area, beds, 
       baths, rating, remarks, 
@@ -51,7 +51,7 @@
       #{createTime,jdbcType=TIMESTAMP}, #{cityId,jdbcType=INTEGER}, #{communityId,jdbcType=INTEGER}, 
       #{address,jdbcType=VARCHAR}, #{state,jdbcType=BIT})
   </insert>
-  <insert id="insertSelective" parameterType="com.lipop.microhouse.model.House" >
+  <insert id="insertSelective" parameterType="com.lipop.micro.house.common.model.House" >
     insert into house
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -166,7 +166,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.lipop.microhouse.model.House" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.lipop.micro.house.common.model.House" >
     update house
     <set >
       <if test="name != null" >
@@ -223,7 +223,7 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.lipop.microhouse.model.House" >
+  <update id="updateByPrimaryKey" parameterType="com.lipop.micro.house.common.model.House" >
     update house
     set name = #{name,jdbcType=VARCHAR},
       type = #{type,jdbcType=BIT},
@@ -244,4 +244,117 @@
       state = #{state,jdbcType=BIT}
     where id = #{id,jdbcType=BIGINT}
   </update>
+  <sql id="houseCondition">
+    <if test="house.userId != null and house.userId != 0">
+      inner join (select house_id,user_id from house_user
+      <where>
+        user_id = #{house.userId}
+        <if test="house.bookmarked != null and house.bookmarked == true">
+          and type = 2
+        </if>
+        <if test="house.bookmarked != null and house.bookmarked == false">
+          and type =1
+        </if>
+      </where>
+      ) b
+      on a.id = b.house_id
+    </if>
+    <where>
+      <!-- 这里要注意只显示上架的房产 -->
+      state = 1
+      <if test="house.id !=null and house.id !=0">
+        and a.id = #{house.id}
+      </if>
+      <if test="house.type != null">
+        and a.type = #{house.type}
+      </if>
+      <if test="house.communityId != null" >
+        and a.community_id = #{house.communityId}
+      </if>
+      <if test="house.name != null and house.name != '' " >
+        <bind name="pattern1" value = "'%' + house.name + '%'" />
+        and a.name like #{pattern1}
+      </if>
+      <if test="house.ids != null and house.ids.size() > 0">
+        and a.id in
+        <foreach collection="house.ids" item="item" index="index" open="(" close=")" separator="," >
+          #{item}
+        </foreach>
+      </if>
+    </where>
+  </sql>
+
+  <select id="selectPageHouses" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" />
+    from house a
+    <include refid="houseCondition"></include>
+    <choose>
+      <when test="house.sort != null and house.sort == 'price_asc'">
+        order by a.price asc
+      </when>
+      <when test="house.sort != null and house.sort == 'price_desc'">
+        order by a.price desc
+      </when>
+      <otherwise>
+        order by a.create_time desc
+      </otherwise>
+    </choose>
+    <if test ="pageParams.offset !=null and pageParams.limit != null">
+      limit #{pageParams.offset},#{pageParams.limit}
+    </if>
+    <if test="pageParams.offset == null and pageParams.limit != null">
+      limit #{pageParams.limit}
+    </if>
+  </select>
+  <select id="selectHouseUser" resultType="com.lipop.micro.house.common.model.HouseUser">
+     select id,house_id,user_id,create_time,type
+     from house_user
+     where house_id = #{id} and user_id = #{userId} and type = #{type}
+   </select>
+  <insert id="insertHouseUser">
+     insert into house_user (house_id,
+                             user_id,
+                             create_time,
+                             type)
+                     value(
+                       #{houseId},
+                       #{userId},
+                       #{createTime},
+                       #{type}
+                     )
+
+   </insert>
+
+  <select id="selectSaleHouseUser" resultType="com.lipop.micro.house.common.model.HouseUser">
+     select id,house_id,user_id,create_time,type
+     from house_user
+     where house_id = #{houseId} and  type = 1
+     limit 1
+   </select>
+  <insert id="insertUserMsg">
+     insert into house_msg (
+                     msg,
+                     create_time,
+                     user_name,
+                     house_id,
+                     agent_id
+                     )
+                     value(
+                      #{msg},
+                      #{createTime},
+                      #{userName},
+                      #{houseId},
+                      #{agentId}
+                     )
+    </insert>
+  <update id="downHouse">
+      update house
+      set    state = 2
+      where  id = #{id}
+    </update>
+  <delete id="deleteHouseUser">
+      delete from house_user
+      where  house_id = #{id} and user_id = #{userId} and type=#{type}
+
+    </delete>
 </mapper>

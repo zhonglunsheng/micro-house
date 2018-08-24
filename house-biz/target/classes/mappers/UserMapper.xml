@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.lipop.microhouse.dao.UserMapper" >
-  <resultMap id="BaseResultMap" type="com.lipop.microhouse.model.User" >
+<mapper namespace="com.lipop.micro.house.biz.dao.UserMapper" >
+  <resultMap id="BaseResultMap" type="com.lipop.micro.house.common.model.User" >
     <constructor >
       <idArg column="id" jdbcType="BIGINT" javaType="java.lang.Long" />
       <arg column="name" jdbcType="VARCHAR" javaType="java.lang.String" />
@@ -10,9 +10,9 @@
       <arg column="aboutme" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="passwd" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="avatar" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="type" jdbcType="BIT" javaType="java.lang.Boolean" />
+      <arg column="type" jdbcType="INTEGER" javaType="java.lang.Integer" />
       <arg column="create_time" jdbcType="DATE" javaType="java.util.Date" />
-      <arg column="enable" jdbcType="BIT" javaType="java.lang.Boolean" />
+      <arg column="enable" jdbcType="INTEGER" javaType="java.lang.Integer" />
       <arg column="agency_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
     </constructor>
   </resultMap>
@@ -29,7 +29,7 @@
     delete from user
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.lipop.microhouse.model.User" >
+  <insert id="insert" parameterType="com.lipop.micro.house.common.model.User" >
     insert into user (id, name, phone, 
       email, aboutme, passwd, 
       avatar, type, create_time, 
@@ -39,7 +39,7 @@
       #{avatar,jdbcType=VARCHAR}, #{type,jdbcType=BIT}, #{createTime,jdbcType=DATE}, 
       #{enable,jdbcType=BIT}, #{agencyId,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="com.lipop.microhouse.model.User" >
+  <insert id="insertSelective" parameterType="com.lipop.micro.house.common.model.User" >
     insert into user
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -112,7 +112,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.lipop.microhouse.model.User" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.lipop.micro.house.common.model.User" >
     update user
     <set >
       <if test="name != null" >
@@ -148,7 +148,7 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.lipop.microhouse.model.User" >
+  <update id="updateByPrimaryKey" parameterType="com.lipop.micro.house.common.model.User" >
     update user
     set name = #{name,jdbcType=VARCHAR},
       phone = #{phone,jdbcType=CHAR},
@@ -162,4 +162,59 @@
       agency_id = #{agencyId,jdbcType=INTEGER}
     where id = #{id,jdbcType=BIGINT}
   </update>
+  <select id="selectUserAgentListForPage" resultMap="BaseResultMap">
+    select * from user
+    <where>
+      enable = 1 and type = 2
+      <if test="user.id != null and user.id != 0">
+        and id = #{user.id}
+      </if>
+      <if test="user.name !=null and user.name != ''">
+        and email = #{user.email}
+      </if>
+    </where>
+    order by id desc
+    <if test='pageParams.offset != null and pageParams.limit != null'>
+      limit #{pageParams.offset}, #{pageParams.limit}
+    </if>
+    <if test='pageParams.offset == null and pageParams.limit != null'>
+      limit #{pageParams.limit}
+    </if>
+  </select>
+  <select id="selectUserAgentCount" resultType="long">
+    select count(id)
+    from user
+    <where>
+      enable =1 and type =2
+      <if test ="user.id != null and user.id !=0">
+        and id = #{user.id}
+      </if>
+      <if test="user.name !=null and user.name != ''">
+        and email = #{user.email}
+      </if>
+    </where>
+  </select>
+  <select id="selectUserList" resultType="com.lipop.micro.house.common.model.User">
+     select name,phone,email from user
+   </select>
+  <select id="selectUsersByQuery" resultType="com.lipop.micro.house.common.model.User">
+    select * from user
+    <where>
+      <if test="id !=null" >
+        and id = #{id}
+      </if>
+      <if test="email != null">
+        and email = #{email}
+      </if>
+      <if test="passwd != null">
+        and passwd = #{passwd}
+      </if>
+      <if test="enable != null">
+        and enable = #{enable}
+      </if>
+      <if test = "type != null and type!=0">
+        and type = #{type}
+      </if>
+    </where>
+  </select>
 </mapper>
