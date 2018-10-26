@@ -9,16 +9,13 @@
         <module name="house-biz" />
         <module name="house-common" />
         <module name="house-web" />
-        <module name="spring-admin" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="hourse-parent" target="1.8" />
-      <module name="house-biz" target="1.8" />
-      <module name="house-common" target="1.7" />
-      <module name="house-web" target="1.7" />
-      <module name="micro-hourse" target="1.8" />
-      <module name="spring-admin" target="1.7" />
+      <module name="house" target="1.5" />
+      <module name="house-biz" target="1.5" />
+      <module name="house-common" target="1.5" />
+      <module name="house-web" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
