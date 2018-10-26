@@ -15,6 +15,7 @@
       <module name="house" target="1.5" />
       <module name="house-biz" target="1.5" />
       <module name="house-common" target="1.5" />
+      <module name="house-parent" target="1.5" />
       <module name="house-web" target="1.8" />
     </bytecodeTargetLevel>
   </component>

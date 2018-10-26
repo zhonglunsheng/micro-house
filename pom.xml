@@ -6,15 +6,14 @@
     <groupId>com.lsheng.house</groupId>
     <artifactId>house-parent</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <modules>
-        <module>house-web</module>
-    </modules>
+    <!-- 打包方式 -->
     <packaging>pom</packaging>
 
     <name>house-parent</name>
     <description>基于Spring Boot开发的房产销售单体平台</description>
 
     <dependencyManagement>
+        <!-- 各个模块统一版本 -->
         <dependencies>
             <dependency>
                 <groupId>org.springframework.boot</groupId>
@@ -31,7 +30,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
-
+    <!--模块通用依赖-->
     <dependencies>
         <dependency>
             <groupId>junit</groupId>
@@ -67,5 +66,12 @@
         </dependency>
 
     </dependencies>
+
+    <!--子模块-->
+    <modules>
+        <module>house-biz</module>
+        <module>house-common</module>
+        <module>house-web</module>
+    </modules>
 
 </project>
