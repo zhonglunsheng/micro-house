@@ -103,7 +103,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <mainClass>com.lsheng.house.HouseApplication</mainClass>
+                    <mainClass>com.lsheng.house.web.HouseApplication</mainClass>
                     <layout>ZIP</layout>
                 </configuration>
                 <executions>
