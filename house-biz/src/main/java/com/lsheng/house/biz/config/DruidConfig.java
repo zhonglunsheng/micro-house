@@ -23,6 +23,10 @@ public class DruidConfig {
 		return dataSource;
 	}
 
+	/**
+	 * 慢SQL配置
+	 * @return
+	 */
 	@Bean
 	public Filter statFilter(){
 		StatFilter filter = new StatFilter();
@@ -32,7 +36,10 @@ public class DruidConfig {
 		return filter;
 	}
 
-
+	/**
+	 * druid UI界面访问路径
+	 * @return
+	 */
 	@Bean
 	public ServletRegistrationBean servletRegistrationBean(){
 		return new ServletRegistrationBean(new StatViewServlet(), "/druid/*");

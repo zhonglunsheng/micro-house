@@ -7,7 +7,13 @@ public class PageParams {
 	private Integer pageNum;
 	private Integer offset;
 	private Integer limit;
-	
+
+	/**
+	 * 获取分页范围信息
+	 * @param pageSize
+	 * @param pageNum
+	 * @return
+	 */
 	public static PageParams build(Integer pageSize,Integer pageNum){
 		if (pageSize == null) {
 			pageSize = PAGE_SIZE;

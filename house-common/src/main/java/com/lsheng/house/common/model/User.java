@@ -18,8 +18,11 @@ public class User {
 	private String passwd;
 	
 	private String confirmPasswd;
-	
-	private Integer type;//普通用户1，经纪人2
+
+	/**
+	 * 普通用户1，经纪人2
+	 */
+	private Integer type;
 	
 	private Date   createTime;
 	

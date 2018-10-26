@@ -69,7 +69,5 @@ public class Comment {
   public void setBlogId(Integer blogId) {
     this.blogId = blogId;
   }
-  
 
-  
 }
