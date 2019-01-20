@@ -14,15 +14,15 @@ import org.apache.ibatis.annotations.Param;
 @Mapper
 public interface CommentMapper {
 
-  List<House> selectHouse(@Param("house") House query, @Param("pageParams") PageParams pageParams);
-
-  Long selectHouseCount(@Param("house") House query);
-
-  List<Community> selectCommunity(Community community);
-
-  int insertUserMsg(UserMsg userMsg);
-
-  int updateHouse(House house);
+//  List<House> selectHouse(@Param("house") House query, @Param("pageParams") PageParams pageParams);
+//
+//  Long selectHouseCount(@Param("house") House query);
+//
+//  List<Community> selectCommunity(Community community);
+//
+//  int insertUserMsg(UserMsg userMsg);
+//
+//  int updateHouse(House house);
 
   int insert(Comment comment);
 
