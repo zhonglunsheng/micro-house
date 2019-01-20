@@ -27,7 +27,7 @@ Git | 分布式版本控制 | https://git-scm.com/
 
 
 #### 架构图
-![mark](http://upload.i20forever.cn/blog/180905/jEceiDa1I9.png?imageslim)
+![mark](http://upload.i20forever.cn/blog/20190120/Px3fXwPnOSoI.png?imageslim)
 
 #### 启动运行
 
