@@ -1,0 +1,3 @@
+2018-11-25 18:05:28.364  [http-nio-8085-exec-8] DEBUG [CommentMapper.selectComments:] [e948ff7acafc5978,ee1193f2f707210a] - ==>  Preparing: select id, content, house_id, create_time, blog_id, type, user_id from comment where type =1 and house_id = ? order by create_time desc limit ?
+2018-11-25 18:05:28.367  [http-nio-8085-exec-8] DEBUG [CommentMapper.selectComments:] [e948ff7acafc5978,ee1193f2f707210a] - ==> Parameters: 25(Long), 8(Integer)
+2018-11-25 18:05:28.370  [http-nio-8085-exec-8] DEBUG [CommentMapper.selectComments:] [e948ff7acafc5978,ee1193f2f707210a] - <==      Total: 2
