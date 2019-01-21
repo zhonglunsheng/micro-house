@@ -1,9 +1,6 @@
 # micro-house
 Spring Cloud 打造微服务房产销售平台
 
-# micro-house
-Spring Cloud 打造微服务房产销售平台
-
 #### 业务模块
 > 在现代的房地产市场越来越复杂化，管理越来越信息化的今天，如何管理好日常的数据变得越来越重要了。现代的房地产市场不仅包含新房，还包括二手房地产市场两部分，所以对数据的分类就显得越来越重要了。面对这样的局面，随着房地产市场的不断成熟，竞争的加剧，越来越需要一个成熟的工具来管理这些数据，提高效率，促进企业的不断壮大就显得重要了。
 
@@ -33,7 +30,7 @@ Git | 分布式版本控制 | https://git-scm.com/
 ![mark](http://upload.i20forever.cn/blog/20190120/Px3fXwPnOSoI.png?imageslim)
 
 #### 启动运行
-使用IDEA分别导入monitor、services目录下的项目
+使用IDEA导入项目
 
 修改各个项目的的application.properties配置文件
 
