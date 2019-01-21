@@ -30,6 +30,24 @@ Git | 分布式版本控制 | https://git-scm.com/
 ![mark](http://upload.i20forever.cn/blog/20190120/Px3fXwPnOSoI.png?imageslim)
 
 #### 启动运行
+使用IDEA导入项目
 
+修改各个项目的的application.properties配置文件
 
-#### 展示图
+依次启动eureka-server、admin、hystrixdashboard、zipkinUi、api-gateway、comment-srv、house-srv、user-service
+
+启动Nginx（静态图片服务器，图片见nginx文件夹）、Redis服务
+#### 界面
+![mark](http://upload.i20forever.cn/blog/20190120/hY5RQl5peQu3.png?imageslim)
+
+![mark](http://upload.i20forever.cn/blog/20190120/jrcGSi1iy8f7.png?imageslim)
+
+![mark](http://upload.i20forever.cn/blog/20190120/2cUTACrps4mO.png?imageslim)
+
+![mark](http://upload.i20forever.cn/blog/20190120/FueV1pRoxJpP.png?imageslim)
+
+![mark](http://upload.i20forever.cn/blog/20190121/jTD1YwpJbG9A.png?imageslim)
+
+![mark](http://upload.i20forever.cn/blog/20190121/lRR4yMAvpUro.png?imageslim)
+
+![mark](http://upload.i20forever.cn/blog/20190121/CutkV2TRCAnO.png?imageslim)
